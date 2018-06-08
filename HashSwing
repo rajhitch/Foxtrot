@@ -1,0 +1,128 @@
+package Carthage;
+
+import java.awt.Button;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.JToggleButton;
+import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+public class HashSwing {
+    Testing test=new Testing();
+    private HashMap map;
+    private JFrame f;
+    private JTabbedPane p;
+    private TabOne tab1;
+    private TabTwo tab2;
+    private TabThree tab3;
+    public HashSwing(){
+        map=new HashMap<Integer,JPanel>();
+        f=new JFrame();
+        p=new JTabbedPane();
+        tab1=new TabOne(test.x1,test.t1);
+        tab2=new TabTwo();
+        tab3=new TabThree();
+        Assemble();}
+    private void Assemble(){setTabs();f.add(p);setFrame();}
+    private void setFrame(){f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.pack();f.setLocation(150,150);f.setVisible(true);}
+    private void setTabs(){
+        p.addTab("Inventory",tab1);
+        p.addTab("Recipes",tab2);
+        p.addTab("Menu",tab3);}
+    public static void main(String[] deli){
+        HashSwing h=new HashSwing();}}
+
+class Tab extends JPanel{
+    public HashMap tab;
+    public Tab(){tab=new HashMap<Integer,JPanel>();}
+    public void addAction(ActionListener al,Button b){
+        b.addActionListener(al);}
+    public void addBorder(String s1){
+        this.setBorder(new TitledBorder(s1));}
+    public void addChange(ChangeListener cl,JToggleButton t){
+        t.addChangeListener(cl);}
+    public void Assemble(){
+        for(int r=0;r<tab.size();r++){
+            this.add((JPanel)tab.get(r));}}}
+
+class TabOne extends Tab{
+    public TabOne(){}
+    public TabOne(int[] ia,String[] sa){
+        super();
+        int s1=ia.length;
+        int s2=sa.length;
+        if(s1==s2){
+            for(int r=0;r<s1;r++){
+                tab.put(r,new ComponentOne(ia[r],sa[r]));}}
+        else{
+            new RuntimeException("Array size mismatch.");}
+        Assemble();}
+    private void createGroup(int[] ia,String[] sa){}}
+
+class TabTwo extends Tab{
+    private int[] selected;
+    public TabTwo(){}
+    public TabTwo(int i1,String[] sa){
+        super();
+        for(int r=0;r<i1;r++){tab.put(r,new ComponentThree(sa[r]));}Assemble();}
+    public void buildList(){}}
+
+class TabThree extends Tab{
+    private JTextArea a;
+    private JScrollPane p;
+    public TabThree(){
+        super();
+        a=new JTextArea();
+        p=new JScrollPane();
+        p.add(a);this.add(p);}
+    public void setText(String s1){a.setText(s1);}}
+
+class ComponentOne extends Tab{
+    private JSpinner s;private JLabel l;
+    public ComponentOne(int i,String x){
+        s=new JSpinner();s.setValue(i);l=new JLabel(x);addAll();}
+    private void addAll(){this.add(s);this.add(l);} 
+    public int getValue(){return (Integer)s.getValue();}}
+
+class ComponentTwo extends Tab{
+    private JTextField f1,f2;private JButton b;private JLabel l1,l2;
+    public ComponentTwo(String s1,String s2,String s3,int i1,int i2){
+        b=new JButton(s1);l1=new JLabel(s2);l2=new JLabel(s3);
+        f1=new JTextField(i1);f2=new JTextField(i2);addAll();}
+    private void addAll(){
+        this.add(l1);this.add(f1);this.add(b);this.add(l2);this.add(f2);}
+    public String getField(){return f1.getText();}
+    public void setField(String s1){f2.setText(s1);}}
+
+class ComponentThree extends Tab{
+    private JCheckBox c;private JScrollPane p;private JTextArea a;
+    private Boolean m;
+    public ComponentThree(String s1){
+        c=new JCheckBox(s1);p=new JScrollPane();a=new JTextArea();m=false;
+        addAll();}
+    private void addAll(){p.add(a);this.add(c);this.add(p);}
+    public void addListen(){c.addChangeListener(new ChangeListener(){
+            public void stateChanged(ChangeEvent ce){m=c.isSelected();}});}
+    public Boolean getValue(){return m;}
+    public void setText(String s1){a.setText(s1);}}
+
+class Testing{
+    String gt1="Catagory";
+    int[] x1={5,7,18,2};int[] x2={4,2,1,20};int[] x3={2,12,7,7};
+    String[] t1={"abc","def","ghi","xyz"};
+    String[] t2={"ril","hiv","una","aid"};  
+    String[] t3={"abc","oul","can","piz"};
+    String[] t4={"eik","pra","sic","dou"};
+    String[] t5={"anp","alc","rov","mub"};}
